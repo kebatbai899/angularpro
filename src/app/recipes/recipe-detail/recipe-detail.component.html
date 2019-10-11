@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-xs-12">
+    <img src="{{selectedRecipe?.imagePath}}" alt="" class="img-responsive">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>{{selectedRecipe?.name}}</h1>
+  </div>
+  <div class="col-xs-12">
+    <button class="btn btn-success">To Shopping List</button>
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-danger">Delete</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <p>{{selectedRecipe?.description}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    Ingredients
+  </div>
+</div>
+<div class="row">
+  <h2>My Form</h2>
+  <form (ngSubmit)="addRecipe(f)" #f="ngForm">
+    Recipe Name: <input type="text" #name=ngModel ngModel name="recipeName" required minlength="3" class="form-control" ><br>
+    <div *ngIf=name.invalid>
+        <div *ngIf=name.errors.required style="color:red">
+            Name can't be blank
+        </div>
+        <div *ngIf=name.errors.minlength style="color:red">
+              Name is incorrect
+        </div>
+    </div>
+    Email: <input type="email" #email=ngModel ngModel name="email" required email class="form-control"><br>
+    <div *ngIf=email.invalid>
+        <div *ngIf=email.errors.required style="color:red">
+            Email can't be blank
+        </div>
+        <div *ngIf=email.errors.email style="color:red">
+              Email is incorrect
+        </div>
+    </div>
+    
+    Price: <input type="text"  #price=ngModel ngModel name="price" required class="form-control"><br>
+    <div *ngIf=!price.valid style="color:red">
+        Price can't be blank
+      </div>
+    Ingredient: <input type="text" #ingredient=ngModel ngModel name="ingredients" required class="form-control"><br>
+    <div *ngIf=!ingredient.valid style="color:red">
+        Ingredients can't be blank
+      </div>
+    <button type="submit" [disabled]="!f.valid" class="btn btn-success">Submit</button>
+  </form>
+  <button (click)="loadRecipe()" class="btn btn-danger">Load Recipes</button>
+  <ul>
+    <li *ngFor="let ud of loadedPosts">
+      {{ud.recipeName}}, {{ud.email}},
+      {{ud.price}}, {{ud.ingredients}}
+    </li>
+  </ul>
+</div>
